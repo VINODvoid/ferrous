@@ -1,49 +1,29 @@
-struct User {
-        name:String,
-        age:u8,
-        email:String,
-    }
 
-impl  User {
-    fn greet(&self){
-        println!("Hello {}", self.name)
+
+mod note;
+
+enum Command{
+    Add { content:String, tag:String},
+    List ,
+    Search {keyword:String},
+    Tag {name:String},
+}
+
+fn parse_args(args:Vec<String>)-> Command{
+    match args[1].as_str() {
+        "add" => Command::Add { content: args[2].clone(), tag: args[4].clone() },
+        "list" => Command::List,
+        "search" => Command::Search { keyword: args[2].clone()},
+        "tag" => Command::Tag { name: args[2].clone()},
+        _ => panic!("Unknown command"),
     }
 }
-enum Direction {
-    North,
-    South,
-    East,
-    West
-}
-enum Message{
-    Quit,
-    Move(i32,i32),
-    Write(String), 
-}
-    
 fn main(){
-    let mut user = User{
-        name:String::from("Kalki"),
-        age:26,
-        email:String::from("kalki@gmail.com")
-    };
-    println!("{} and {} and {}",user.name,user.email,user.age);
-    user.greet();
-    user.age = 65;
-    println!("{}",user.age);
-
-    let direction = Direction::North;
-    match direction {
-        Direction::North => println!("Going North"),
-        Direction::South => println!("Going South!"),
-        Direction::East => println!("Going East!"),
-        Direction::West => println!("Going West!"),
+    let args:Vec<String> =  std::env::args().collect();
+    let results = parse_args(args);
+    match results {
+        results.Command::List {
+            println!("Adding note:...");
+        }
     }
-    let msg = Message::Move(10,20);
-    match msg {
-        Message::Quit => println!("Quit"),
-      Message::Move (x, y ) => println!("Move to {} {}", x, y),
-      Message::Write(text) => println!("{}", text),
-    }
-
 }
