@@ -1,6 +1,6 @@
 pub(crate) mod note;
 use std::{env::args};
-use crate::note::{Command, Note};
+use crate::note::{Note};
 use std::fs::{read_to_string,write};
 
 fn main() {
@@ -21,36 +21,39 @@ fn main() {
                             };
                             notes_vec.push(new_note);
                             let  json = serde_json::to_string_pretty(&notes_vec).unwrap();
-                            write("src/notes.json",json).unwrap();
-                                 // match content {
-                                //  Ok(data) => {
-
-
-                                //   }
-                                  //  Err(_) => println("File does not exist !")
-                                //  }
-
-
-
-
+                            write("src/notes.json",json).unwrap(); 
                         }
                         None => println!("write a note to ad "),
                     }
-                    
                 },
                 "search" => {
                     match cmd.get(2){
                         Some(search_word)=> {
-                            let search_cmd = Command::Search { name: search_word.to_string() };
-                            print!("searching for keyword:> {:?}",search_cmd);
+                            let content = read_to_string("src/notes.json").unwrap();
+                           let notes_vec:Vec<Note> =  serde_json::from_str(&content).unwrap();
+                           let mut found = false;
+                            for note in notes_vec {
+                                if note.name.contains(search_word){
+                                    println!("{} | {} | {} | {}", note.id,note.name,note.tag,note.created_at);
+                                    found = true 
+                                }
+                                
+                            }
+                            if !found {
+                            println!(" '{}' unable to find keyword in the notes", search_word);
+                            }
                         }
                         None => println!("enter the search word ")
-
                     }
                     
                 },
                 "list" => {
-                    println!("This is the list of notes : ");
+                    let content = read_to_string("src/notes.json").unwrap();
+                    let notes_vec : Vec<Note> = serde_json::from_str(&content).unwrap();
+                    for note in notes_vec {
+                        println!("{} | {} | {} | {}",note.id,note.name,note.tag,note.created_at);
+                    }
+                    
                 }
                 _ => {
                     println!("wrong arguement : cargo run <command> <sub_command>");

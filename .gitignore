@@ -1,1 +1,2 @@
-/target
+target/
+projects/notes-tool/src/notes.json
