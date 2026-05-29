@@ -36,14 +36,14 @@ ferrous search "keyword"
 ferrous tag rust
 ```
 
-Status: ⬜ Not started
+Status: ✅ Complete
 
 ---
 
 ## Phase 2 — Intermediate
 > Write idiomatic Rust. Use the standard library and external crates confidently.
 
-- [ ] Closures — anonymous functions, capturing environment
+- [x] Closures — anonymous functions, capturing environment
 - [ ] Iterators — `.map()`, `.filter()`, `.fold()`, chaining, lazy evaluation
 - [ ] Traits — shared behavior, implementing for your types
 - [ ] Generics — write code that works for any type
@@ -112,7 +112,7 @@ Good starting points: `fd`, `ripgrep`, `zellij`, `helix`
 | Phase | Status |
 |---|---|
 | Phase 1 — Foundations | ✅ Complete |
-| Phase 1 Project — `ferrous-cli` | ⬜ Pending |
+| Phase 1 Project — `ferrous-cli` | ✅ Complete |
 | Phase 2 — Intermediate | ⬜ In progress |
 | Phase 2 Project — `logwatch` | ⬜ Pending |
 | Phase 3 — Advanced | ⬜ Not started |
