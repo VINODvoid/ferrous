@@ -42,10 +42,10 @@ Status: ✅ Complete
 
 ## Phase 2 — Intermediate
 > Write idiomatic Rust. Use the standard library and external crates confidently.
-
+ 
 - [x] Closures — anonymous functions, capturing environment
-- [ ] Iterators — `.map()`, `.filter()`, `.fold()`, chaining, lazy evaluation
-- [ ] Traits — shared behavior, implementing for your types
+- [x] Iterators — `.map()`, `.filter()`, `.fold()`, chaining, lazy evaluation
+- [x] Traits — shared behavior, implementing for your types
 - [ ] Generics — write code that works for any type
 - [ ] Error handling — `?` operator, custom error types with `thiserror`
 - [ ] Collections — `Vec`, `HashMap`, `HashSet`
