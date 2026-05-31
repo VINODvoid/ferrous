@@ -48,8 +48,8 @@ Status: ✅ Complete
 - [x] Traits — shared behavior, implementing for your types
 - [x] Generics — write code that works for any type
 - [x] Error handling — `?` operator, custom error types with `thiserror`
-- [ ] Collections — `Vec`, `HashMap`, `HashSet`
-- [ ] `serde` — serialize/deserialize JSON, most used Rust crate
+- [x] Collections — `Vec`, `HashMap`, `HashSet`
+- [x] `serde` — serialize/deserialize JSON, most used Rust crate
 - [ ] `clap` — proper CLI interfaces
 - [ ] String types deep dive — `String` vs `&str` in practice
 
