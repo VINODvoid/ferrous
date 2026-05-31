@@ -46,8 +46,8 @@ Status: ✅ Complete
 - [x] Closures — anonymous functions, capturing environment
 - [x] Iterators — `.map()`, `.filter()`, `.fold()`, chaining, lazy evaluation
 - [x] Traits — shared behavior, implementing for your types
-- [ ] Generics — write code that works for any type
-- [ ] Error handling — `?` operator, custom error types with `thiserror`
+- [x] Generics — write code that works for any type
+- [x] Error handling — `?` operator, custom error types with `thiserror`
 - [ ] Collections — `Vec`, `HashMap`, `HashSet`
 - [ ] `serde` — serialize/deserialize JSON, most used Rust crate
 - [ ] `clap` — proper CLI interfaces

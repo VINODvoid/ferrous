@@ -1,0 +1,74 @@
+I Was Already Using Rust. I Just Didn't Know It Yet.
+
+I didn't plan this. There was no moment where I sat down and said "okay, time to learn a systems programming language." That's not how it went at all.
+
+It started with a one-liner from a colleague: "just use rg instead of grep."
+
+That's it. That was the whole pitch. I tried it, and that was the last time I opened grep. ripgrep was just - better. Faster, obviously, but also smarter. It skips node_modules and build folders without being told to. It respects your .gitignore. It doesn't make you consult a man page every time you need a basic flag.
+
+I didn't think much of it at first. A faster grep. Cool.
+
+Then I replaced find with fd. Then cat became bat - same idea but with syntax highlighting and git change markers in the gutter. delta made my git diffs readable for the first time. starship became my shell prompt because my old one was slow and I was tired of it.
+
+Somewhere around tool number five, I stopped and noticed something.
+
+Every single one of these was written in Rust.
+
+I hadn't been looking for Rust. I'd just been reaching for whatever tool solved the problem best, and they kept being the same language underneath. That felt like information.
+
+
+--- the research rabbit hole ---
+
+Once I noticed the pattern, I couldn't stop pulling on it.
+
+ripgrep isn't just a little faster than grep. On real codebases it's 5 to 13 times faster. VS Code uses it for its built-in search - the thing you hit every single day with Cmd+Shift+F. Millions of developers are running Rust code constantly without thinking about it.
+
+Then I found Discord's engineering blog post about switching their read-states service from Go to Rust. Go is already a fast language. I've written Go. It's not slow. But after the switch: request capacity went from 200,000 to 2 million per second - a 10x jump. Latency dropped 50%. Memory usage went down 30%.
+
+The root cause was Go's garbage collector. Every two minutes, it would kick in and spike latency. Not a catastrophic failure - just a consistent, predictable pause that you can't tune away because it's fundamental to how Go manages memory.
+
+Rust has no garbage collector. Not a better one. None. The problem doesn't exist as a category.
+
+AWS Firecracker runs on Rust. That's the thing that powers Lambda - every serverless function you've ever invoked in production is booting on a Rust microVM. 125ms cold start. 150 VMs per second. The whole thing is 50,000 lines of code, compared to hundreds of thousands in alternatives.
+
+Cloudflare rewrote their proxy layer in Rust. 25% faster response times. Half the CPU. Less than half the memory of the previous system.
+
+At some point I stopped and sat with it. I had been using Rust - through the tools I reached for, through the infrastructure running my code in production - for years. I just hadn't learned it.
+
+That bothered me.
+
+
+--- actually learning it ---
+
+I decided to do it properly. Not "follow along with a YouTube series" properly - actually structured. I made a repo called ferrous and wrote a roadmap before touching any code. Phases, exercises, a real project at the end of each phase.
+
+The first few weeks were humbling in a specific way. I've been writing TypeScript for years. I know what it means for a language to have a type system. Rust's type system is not that.
+
+Ownership was the thing I kept bouncing off of. The concept isn't complicated when you read it - each value has one owner, when the owner goes out of scope the value is dropped, you can borrow but the rules are strict. Fine. Makes sense on paper.
+
+Then you try to write code and the compiler tells you that you can't do the thing you just did, and you stare at it for ten minutes before understanding why. Not because the rule is wrong - because the rule is exposing something you never had to think about before. In TypeScript you just... pass things around and hope the runtime sorts it out. Rust makes you prove that you know where your data lives and who owns it.
+
+The first time I understood a borrow checker error on the first read, something genuinely clicked.
+
+The other thing that caught me off guard was how good the error messages are. I'm used to compiler errors that tell you the symptom. "Type X is not assignable to type Y." Sure, but why, and what do I do about it? Rust's compiler tells you what rule you broke, why it exists, and usually suggests the fix. It's like having a senior developer reviewing every save. Harsh but specific. I started to trust it.
+
+By the end of Phase 1 I had covered the whole core: variables, ownership, borrowing, structs, enums, pattern matching, Option and Result, modules. Real Rust, not toy examples.
+
+The Phase 1 project was ferrous-cli - a personal note-taking CLI. Add a note, tag it, search by keyword, list by date. Command-line, pure Rust, no hand-holding from tutorials.
+
+Shipping it felt different from shipping a TypeScript project. Not better or worse necessarily - just different. The binary is a single file. No runtime. No dependency tree to manage. It runs or it doesn't, and if it compiles, it almost certainly runs correctly because the compiler already caught every class of bug it could.
+
+
+--- where I am now ---
+
+Phase 2 is in progress. Closures and iterators are done - those were genuinely satisfying once they clicked, especially iterator chaining. Traits and generics too. Still working through error handling with thiserror and the collections deep-dive.
+
+The Phase 2 project is going to be logwatch - a real-time log file alerter. Tail a log, match regex patterns, print colored alerts with context. Actual devops tooling, not a learning exercise wrapped in a fake use case.
+
+After that, Phase 3 is async Rust and concurrency. I'll pick between building a P2P terminal chat over LAN or a CHIP-8 emulator. Probably the emulator - bit manipulation and exhaustive match as opcode dispatch sounds like the kind of problem Rust was made for.
+
+The goal after all of this is Phase 4: open source contributions to actual Rust projects. ripgrep, fd, helix, zellij - the tools that started this whole thing. That feels like a good destination.
+
+I'm not fast at this yet. Some concepts take longer than they should. But I've stopped fighting the compiler and started listening to it, which is apparently the whole game.
+
+Turns out the language I was already using was worth learning.
